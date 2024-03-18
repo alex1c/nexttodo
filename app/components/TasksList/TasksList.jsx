@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import MyStyles from "./TasksList.module.css";
+import DeleteButton from "../DeleteButton/DeleteButton";
 
 function TasksList(props) {
   const [category, setCategory] = useState("");
@@ -51,17 +53,20 @@ function TasksList(props) {
   };
 
   return (
-    <div className=" container mx-auto flex items-stretch">
-      
+    <div className={MyStyles.MainAccordionMainDiv}>
       {taskList.map((item) => (
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">{item.name}</h2>
-            <p>{item.body}</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
+        <div className={MyStyles.TaskListMainDiv}>
+         {/*  <div className="card w-96 bg-base-100 shadow-xl "> */}
+            <div className="card-body ">
+              <h2 className="card-title">{item.name}</h2>
+              <p>{item.body}</p>
+              <div className="card-actions justify-between">
+                <button className={MyStyles.btnEdit}>Редактировать</button>
+                
+                <DeleteButton idDelet={item._id}></DeleteButton>
+              </div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       ))}
     </div>

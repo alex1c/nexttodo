@@ -1,0 +1,26 @@
+.btnDelete {
+    background: #c6d934;
+    background-image: -webkit-linear-gradient(top, #c6d934, #4eb82b);
+    background-image: -moz-linear-gradient(top, #c6d934, #4eb82b);
+    background-image: -ms-linear-gradient(top, #c6d934, #4eb82b);
+    background-image: -o-linear-gradient(top, #c6d934, #4eb82b);
+    background-image: linear-gradient(to bottom, #c6d934, #4eb82b);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Georgia;
+    color: #ffffff;
+    font-size: 17px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+  
+  .btnDelete:hover {
+    background: #fc3c3c;
+    background-image: -webkit-linear-gradient(top, #fc3c3c, #d99734);
+    background-image: -moz-linear-gradient(top, #fc3c3c, #d99734);
+    background-image: -ms-linear-gradient(top, #fc3c3c, #d99734);
+    background-image: -o-linear-gradient(top, #fc3c3c, #d99734);
+    background-image: linear-gradient(to bottom, #fc3c3c, #d99734);
+    text-decoration: none;
+  }

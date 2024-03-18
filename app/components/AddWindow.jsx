@@ -9,7 +9,7 @@ function AddWindow(props) {
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
 
-  const router = useRouter()
+  const router = useRouter();
 
   function fakeHandler() {
     return null;
@@ -51,7 +51,7 @@ function AddWindow(props) {
         body: JSON.stringify({ name, body, author, category }),
       });
 
-     // console.log("res---", res);
+      // console.log("res---", res);
 
       if (res.ok) {
         router.push("/");
@@ -62,15 +62,13 @@ function AddWindow(props) {
     } catch (error) {
       console.log(error);
     }
-
-    
   };
 
   return (
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn btn-outline mt-2"
+        className="btn btn-outline my-5"
         //onClick={() => document.getElementById("my_modal_1").showModal()}
         onClick={() =>
           document.getElementById("my_modal_" + props.category).showModal()
@@ -123,10 +121,11 @@ function AddWindow(props) {
                 <button
                   className="btn btn-outline mt-2 mx-2"
                   type="submit"
-                   onClick={() =>
+                  onClick={() =>
                     document
                       .getElementById("my_modal_" + props.category)
-                      .close()}
+                      .close()
+                  }
                 >
                   Создать
                 </button>

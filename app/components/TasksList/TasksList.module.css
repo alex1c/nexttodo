@@ -1,0 +1,49 @@
+.TaskListMainDiv {
+  background: rgb(217, 249, 157);
+  background: linear-gradient(
+    315deg,
+    rgba(217, 249, 157, 1) 0%,
+    rgba(255, 255, 255, 1) 55%
+  );
+
+  border-radius: 10px 10px 5px;
+}
+
+.MainAccordionMainDiv {
+  background-color: rgb(217, 249, 157);
+  margin-left: auto;
+  margin-right: 10px;
+
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.btnEdit {
+  background: #c6d934;
+  background-image: -webkit-linear-gradient(top, #c6d934, #4eb82b);
+  background-image: -moz-linear-gradient(top, #c6d934, #4eb82b);
+  background-image: -ms-linear-gradient(top, #c6d934, #4eb82b);
+  background-image: -o-linear-gradient(top, #c6d934, #4eb82b);
+  background-image: linear-gradient(to bottom, #c6d934, #4eb82b);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 17px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btnEdit:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+
