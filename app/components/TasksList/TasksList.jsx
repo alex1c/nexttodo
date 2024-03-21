@@ -1,7 +1,10 @@
+
+
 import React, { useState, useEffect } from "react";
 import MyStyles from "./TasksList.module.css";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from 'next/cache'
 
 function TasksList(props) {
   const [category, setCategory] = useState("");
@@ -41,6 +44,7 @@ function TasksList(props) {
         headers: {
           "Content-type": "application/json",
         },
+       
         // body: JSON.stringify({ category }),
       });
 
@@ -51,8 +55,13 @@ function TasksList(props) {
       
 
       if (res.ok) {
-        router.push("/");
+        //const path = res.url
+        //router.push('/');
+        //router.refresh();
         router.refresh();
+        
+        //console.log('-*-*---',path);
+        //revalidatePath(path)
         //сначала думал здесь при обновлении перечитаются посты и уберутся удаленные, но нет. Пришлось отдельно дергать функцию через пропс
         return res;
       } else {

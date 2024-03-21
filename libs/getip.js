@@ -1,7 +1,7 @@
 "use server";
 //import React from 'react'
 
-let realip = ''
+let realip = "";
 
 async function getIPFromAmazon() {
   return await fetch("https://checkip.amazonaws.com/", {
@@ -14,18 +14,17 @@ async function getIPFromAmazon() {
     .then(function (data) {
       console.log("data ip--", data);
       return data;
+    })
+    .catch((error) => {
+      //возвращать имя компа или что то подобное если не будет работать без впн
+      return error;
     });
 }
 
 async function getip() {
-  return await  getIPFromAmazon()
+  return await getIPFromAmazon();
 }
 
 //console.log("getip", getip());
 
-
-    
-
-
-export default  getip
-  
+export default getip;

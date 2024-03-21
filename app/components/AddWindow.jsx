@@ -1,3 +1,5 @@
+
+
 import React, { Children } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -56,6 +58,7 @@ function AddWindow(props) {
       if (res.ok) {
         router.push("/");
         router.refresh();
+        router.replace('/')
       } else {
         throw new Error("Задача не создана ");
       }
