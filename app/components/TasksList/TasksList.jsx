@@ -1,10 +1,10 @@
-
-
 import React, { useState, useEffect } from "react";
 import MyStyles from "./TasksList.module.css";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from "next/cache";
+import Link from "next/link";
+
 
 function TasksList(props) {
   const [category, setCategory] = useState("");
@@ -24,16 +24,16 @@ function TasksList(props) {
     setTaskList(hren);
   }
 
-  const returnMessage = function() {
-   // console.log('труляля-----');
+  const returnMessage = function () {
+    // console.log('труляля-----');
     handleSubmit();
-  }
+  };
 
   const handleSubmit = async () => {
     //console.log("🚀 ~ file: TasksList.jsx:7 ~ TasksList ~ taskList:", taskList);
 
     try {
-     // console.log("props.category---", props.category);
+      // console.log("props.category---", props.category);
       let str1 = "http://localhost:3000/api/tasks?cat=";
       let str2 = props.category;
       //почесму эта сука не работала нормальным сложением строк? Только через костыль? str+str?
@@ -44,7 +44,7 @@ function TasksList(props) {
         headers: {
           "Content-type": "application/json",
         },
-       
+
         // body: JSON.stringify({ category }),
       });
 
@@ -52,14 +52,12 @@ function TasksList(props) {
         FackingPromice(data.body);
       });
 
-      
-
       if (res.ok) {
         //const path = res.url
         //router.push('/');
         //router.refresh();
         router.refresh();
-        
+
         //console.log('-*-*---',path);
         //revalidatePath(path)
         //сначала думал здесь при обновлении перечитаются посты и уберутся удаленные, но нет. Пришлось отдельно дергать функцию через пропс
@@ -76,17 +74,23 @@ function TasksList(props) {
     <div className={MyStyles.MainAccordionMainDiv}>
       {taskList.map((item) => (
         <div key={item._id} className={MyStyles.TaskListMainDiv}>
-         {/*  <div className="card w-96 bg-base-100 shadow-xl "> */}
-            <div className="card-body ">
-              <h2 className="card-title">{item.name}</h2>
-              <p>{item.body}</p>
-              <div className="card-actions justify-between">
+          {/*  <div className="card w-96 bg-base-100 shadow-xl "> */}
+          <div className="card-body ">
+            <h2 className="card-title">{item.name}</h2>
+            <p>{item.body}</p>
+            <div className="card-actions justify-between">
+              {/*  <button className={MyStyles.btnEdit}>Редактировать</button> */}
+              <Link href={`/editTask/${item._id}`}>
                 <button className={MyStyles.btnEdit}>Редактировать</button>
-                
-               {/* в кнопку передаем в качестве промиса функцию. После успешного удаления дергаем ее и она запускает фетч */}
-                <DeleteButton idDelet={item._id} funcReturn = {returnMessage}></DeleteButton>
-              </div>
+              </Link>
+
+              {/* в кнопку передаем в качестве промиса функцию. После успешного удаления дергаем ее и она запускает фетч */}
+              <DeleteButton
+                idDelet={item._id}
+                funcReturn={returnMessage}
+              ></DeleteButton>
             </div>
+          </div>
           {/* </div> */}
         </div>
       ))}
