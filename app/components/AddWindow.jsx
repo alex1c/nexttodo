@@ -1,4 +1,4 @@
-
+//не работает. Переделал на добавление через app/addtask/id
 
 import React, { Children } from "react";
 import { useState, useEffect } from "react";

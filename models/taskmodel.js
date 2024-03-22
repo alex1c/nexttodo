@@ -2,8 +2,8 @@ import mongoose, { Schema } from "mongoose";
  
 const topicSchema = new Schema(
     {
-        name: { type: String, required: false },
-        category: { type: String, required: false },
+        name: { type: String, required: true },
+        category: { type: String, required: true },
         body: { type: String, required: false },
         author: { type: String, required: false },
     },
