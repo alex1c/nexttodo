@@ -1,13 +1,54 @@
 import React from "react";
+import { signOut, auth, signIn } from "../../auth";
 
-function Navbar() {
+async function Navbar() {
+
+  const session = await auth();
+
   return (
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">Матрица Эйзенхауэра</a>
         </div>
-        <div className="flex-none gap-2">
+
+        <div className="ml-auto">
+        <div className="form-control mx-3">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input input-bordered w-24 md:w-auto"
+            />
+          </div>
+        {/*  {session && session.user ? (<div><p>{session.user.name}</p><form></form><div/>) : (<div>333<div/>)} */}
+        {session && session.user ? (
+          <div className="flex gap-4 text-green-800">
+            <p>{session.user.name}</p>
+            <form
+              action={async () => {
+                "use server";
+                await signOut();
+              }}
+            >
+              <button type="submit" className=" text-green-800 mr-4">
+                Выйти
+              </button>
+            </form>
+          </div>
+        ) : (
+          <form
+            action={async () => {
+              "use server";
+              await signIn();
+            }}
+          >
+            <button type="submit" className=" text-green-700 mr-4">
+              Войти
+            </button>
+          </form>
+        )}
+      </div>
+        {/* <div className="flex-none gap-2">
           <div className="form-control">
             <input
               type="text"
@@ -46,7 +87,7 @@ function Navbar() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

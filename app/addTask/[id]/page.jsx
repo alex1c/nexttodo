@@ -2,20 +2,27 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import getip from "@/libs/getip";
+import getip from "../../../libs/getip";
+import {useSession} from 'next-auth/react'
+
 
 export default function AddTask({ params }) {
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
+  const [authorName, setAuthorName] = useState("")
+  const [authorEmail, setAuthorEmail] = useState("")
 
   const router = useRouter();
 
   const { id } = params;
 
+  const {data: session} = useSession()
+
   //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
   async function getip_server() {
+    
     return await getip().then(function (data) {
       setAuthor(data);
 
@@ -23,11 +30,25 @@ export default function AddTask({ params }) {
     });
   }
 
+
+
   useEffect(() => {
-    let ip = getip_server();
+
+    //Получим IP  у Амазона
+    let ip = getip_server();  
+    
+    //если залогинен то заполним автора из логина
+    if (session || session?.user) {
+   //   if (session ) {
+      setAuthorName(session.user.name)
+      setAuthorEmail(session.user.email)
+      //console.log('authorName--',authorName, 'author---', authorEmail,session.user.name);
+    }
 
     setCategory(id);
   }, []);
+
+
 
   //кнопка закрытия
   const handleClose = function () {
@@ -43,13 +64,15 @@ export default function AddTask({ params }) {
       return;
     }
 
+    //console.log("debug---",authorEmail,'-----',session?.user.name)
+
     try {
       const res = await fetch("http://localhost:3000/api/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ name, body, author, category }),
+        body: JSON.stringify({ name, body, author, category, authorName, authorEmail }),
       });
 
       console.log(res);
@@ -88,7 +111,7 @@ export default function AddTask({ params }) {
               placeholder="что сделать"
               // defaultValue="/images/1.jpg"
             />
-            <input
+           {/*  <input
               hidden="true"
               onChange={(e) => setAuthor(e.target.value)}
               value={author}
@@ -104,7 +127,7 @@ export default function AddTask({ params }) {
               className="input input-bordered input-accent w-full max-w-xs"
               type="text"
               placeholder="Task Category"
-            />
+            /> */}
             <div className="flex flex-row ">
               <button
                 type="submit"

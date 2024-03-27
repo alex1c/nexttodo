@@ -6,6 +6,8 @@ const topicSchema = new Schema(
         category: { type: String, required: true },
         body: { type: String, required: false },
         author: { type: String, required: false },
+        authorName: { type: String, required: false },
+        authorEmail: { type: String, required: false },
     },
     {
         timestamps: true,

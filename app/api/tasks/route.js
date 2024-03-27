@@ -12,16 +12,16 @@ import { NextResponse } from "next/server";
 } */
 
 export async function POST(request) {
-  console.log("request-------", request);
+ // console.log("request-------", request);
   //записываем в бд одну задачу
 
-  const { name, body, author, category } = await request.json();
-  //console.log("body-------", category);
+  const { name, body, author, category , authorName, authorEmail  } = await request.json();
+  //console.log("body-------", name, body, author, category , authorName, authorEmail);
 
   if (body || name) {
     //console.log("we are here ");
     await connectMongoDB();
-    await TaskModel.create({ name, body, author, category });
+    await TaskModel.create({ name, body, author, category, authorName, authorEmail });
     return NextResponse.json({ message: "Task Created" }, { status: 201 });
   }
 }
@@ -33,11 +33,16 @@ export async function DELETE(request) {
   return NextResponse.json({ message: "Task deleted" }, { status: 200 });
 }
 
+//сюда приходит запрос на вывод задач на главную страницу
+//в параметры добавил ип для всех и name для зарегистрированных пользователей
 export async function GET(request, { params }) {
     //const { cat } = params;
    
     const cat = request.nextUrl.searchParams.get("cat");
-    console.log('params---------------',params)
+    const author = request.nextUrl.searchParams.get("author");
+    const authorName = request.nextUrl.searchParams.get("authorName");
+
+    console.log('params---------------',params, cat, author, authorName);
   await connectMongoDB();
   //const tasks = await TaskModel.find();
   const tasks = await TaskModel.find({ category: cat });

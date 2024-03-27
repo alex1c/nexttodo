@@ -1,20 +1,53 @@
-import React, { useState, useEffect } from "react";
-import MyStyles from "./TasksList.module.css";
-import DeleteButton from "../DeleteButton/DeleteButton";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import Link from "next/link";
-
+import React, { useState, useEffect } from 'react';
+import MyStyles from './TasksList.module.css';
+import DeleteButton from '../DeleteButton/DeleteButton';
+import { useRouter } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import getip from '../../../libs/getip'
 
 function TasksList(props) {
+  //
+  //
+  //
   const [category, setCategory] = useState("");
   const [taskList, setTaskList] = useState([]);
+  /* const [author, setAuthor] = useState(""); //ип для параметра запроса
+  const [authorName, setAuthorName] = useState(""); //имя для запроса тасков авторизованных пользователей */
 
   const router = useRouter();
+
+  //const {data: session} = useSession()
+
+  /* //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
+  //получаем ип у Амазона
+  async function getip_server() {
+    return await getip().then(function (data) {
+      setAuthor(data);
+      console.log('author--',data);
+      return data;
+    });
+  } */
 
   //при обновлении страницы получаем категории и запускаем фетч
   useEffect(() => {
     setCategory(props.category);
+    //Получим IP  у Амазона
+   // let ip = getip_server();
+    //если залогинен то заполним автора из логина
+    /* if (session || session?.user) {
+      //setAuthorName(session.user.name)
+      setAuthorName(session.user.name);
+      console.log(
+        'authorName1--',
+        authorName,
+        'author2---',
+        author,'-----',
+        session.user.name
+      ); */
+    //}
+    //основной фетч обновления задач на странице
     handleSubmit();
   }, []);
 
@@ -24,25 +57,44 @@ function TasksList(props) {
     setTaskList(hren);
   }
 
+  //костыль. после удаления через эту функцию запускаем повторный фетч
   const returnMessage = function () {
     // console.log('труляля-----');
     handleSubmit();
   };
 
+  //основной обработчик
   const handleSubmit = async () => {
     //console.log("🚀 ~ file: TasksList.jsx:7 ~ TasksList ~ taskList:", taskList);
 
     try {
-      // console.log("props.category---", props.category);
-      let str1 = "http://localhost:3000/api/tasks?cat=";
+      //по категории ищем всегда
+      let str1 = 'http://localhost:3000/api/tasks?cat=';
       let str2 = props.category;
-      //почесму эта сука не работала нормальным сложением строк? Только через костыль? str+str?
+      //
+
+      /* //если авторизован добавляем имя
+      let str3 = '';
+      if (authorName !== '') {
+        str3 = '?authorName=' + authorName;
+        console.log('str3--',str3);
+      }
+      //если не авториизован то ищем по ИП
+      let str4 = '';
+      if (author !== '') {
+        str4 = '?author=' + author;
+        console.log('str4--',str4);
+      } */
+      //
+      //
+      //console.log('string----',str1,str2,str3,str4);
+      //почему эта сука не работала нормальным сложением строк? Только через костыль? str+str?
       //const res = await fetch(`"http://localhost:3000/api/tasks?cat="${props.category}`, {
       /* const res = await fetch("http://localhost:3000/api/tasks?cat=" ,{ */
       const res = await fetch(str1 + str2, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         },
 
         // body: JSON.stringify({ category }),
@@ -63,7 +115,7 @@ function TasksList(props) {
         //сначала думал здесь при обновлении перечитаются посты и уберутся удаленные, но нет. Пришлось отдельно дергать функцию через пропс
         return res;
       } else {
-        throw new Error("Задачи не получены ");
+        throw new Error('Задачи не получены ');
       }
     } catch (error) {
       console.log(error);

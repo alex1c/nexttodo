@@ -1,19 +1,24 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "./components/Navbar";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Navbar from './components/Navbar';
+import Providers from '../providers';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "Martix",
-  description: "Матрица Эйзенхауэра",
+  title: 'Martix',
+  description: 'Матрица Эйзенхауэра',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar></Navbar>{children}</body>
+        <Providers>
+          <Navbar></Navbar>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
