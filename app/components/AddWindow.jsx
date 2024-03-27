@@ -3,7 +3,8 @@
 import React, { Children } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import getip from "@/libs/getip";
+//import getip from "@/libs/getip";
+import getip from "../../libs/getip";
 
 function AddWindow(props) {
   const [name, setName] = useState("");

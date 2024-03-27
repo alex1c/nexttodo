@@ -10,6 +10,12 @@ export default function EditTaskForm({ id, name, body, author,category }) {
     const [newCategory, setNewCategory] = useState(category);
  
     const router = useRouter();
+
+    //кнопка закрытия
+  const handleClose = function () {
+    router.push("/");
+    router.refresh();
+  };
  
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,7 +43,7 @@ export default function EditTaskForm({ id, name, body, author,category }) {
     return (
         <>
         <div className="flex justify-between items-center">
-            <h1 className="font-bold py-10 text-2xl">Update Product</h1>
+            <h1 className="font-bold py-10 text-2xl">Обновить задачу</h1>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input
@@ -67,8 +73,15 @@ export default function EditTaskForm({ id, name, body, author,category }) {
             /> */}
  
             <button className="btn btn-primary w-full max-w-xs">
-                Update Task
+                Обновить задачу
             </button>
+            <button
+                type="button"
+                className="btn btn-primary w-full max-w-xs"
+                onClick={handleClose}
+              >
+                Отмена
+              </button>
         </form>
         </>
     );
