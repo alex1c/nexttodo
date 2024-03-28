@@ -1,5 +1,5 @@
 //import EditProductForm from "@/components/EditProductForm";
-import EditTaskForm from "@/app/components/EditTaskForm/EditTaskForm";
+import EditTaskForm from "../../components/EditTaskForm/EditTaskForm";
  
 const getTaskById = async (id) => {
     try {

@@ -5,48 +5,21 @@ import { useRouter } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import getip from '../../../libs/getip'
+import getip from '../../../libs/getip';
 
 function TasksList(props) {
   //
   //
   //
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [taskList, setTaskList] = useState([]);
-  /* const [author, setAuthor] = useState(""); //ип для параметра запроса
-  const [authorName, setAuthorName] = useState(""); //имя для запроса тасков авторизованных пользователей */
 
   const router = useRouter();
-
-  //const {data: session} = useSession()
-
-  /* //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
-  //получаем ип у Амазона
-  async function getip_server() {
-    return await getip().then(function (data) {
-      setAuthor(data);
-      console.log('author--',data);
-      return data;
-    });
-  } */
 
   //при обновлении страницы получаем категории и запускаем фетч
   useEffect(() => {
     setCategory(props.category);
-    //Получим IP  у Амазона
-   // let ip = getip_server();
-    //если залогинен то заполним автора из логина
-    /* if (session || session?.user) {
-      //setAuthorName(session.user.name)
-      setAuthorName(session.user.name);
-      console.log(
-        'authorName1--',
-        authorName,
-        'author2---',
-        author,'-----',
-        session.user.name
-      ); */
-    //}
+
     //основной фетч обновления задач на странице
     handleSubmit();
   }, []);
@@ -73,25 +46,26 @@ function TasksList(props) {
       let str2 = props.category;
       //
 
-      /* //если авторизован добавляем имя
+      //если авторизован добавляем имя
       let str3 = '';
-      if (authorName !== '') {
+      if (props.authorName !== '') {
         str3 = '?authorName=' + authorName;
-        console.log('str3--',str3);
+         console.log('str3--',props.authorName);
       }
+      console.log('str3--',props);
       //если не авториизован то ищем по ИП
       let str4 = '';
-      if (author !== '') {
+      if (props.author !== '') {
         str4 = '?author=' + author;
-        console.log('str4--',str4);
-      } */
+        // console.log('str4--',str4);
+      }
       //
       //
-      //console.log('string----',str1,str2,str3,str4);
+      console.log('string----',str1,str2,str3,str4);
       //почему эта сука не работала нормальным сложением строк? Только через костыль? str+str?
       //const res = await fetch(`"http://localhost:3000/api/tasks?cat="${props.category}`, {
       /* const res = await fetch("http://localhost:3000/api/tasks?cat=" ,{ */
-      const res = await fetch(str1 + str2, {
+      const res = await fetch(str1 + str2 + str3 + str4, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',

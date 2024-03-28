@@ -1,5 +1,5 @@
-import connectMongoDB from "@/libs/mongodb";
-import TaskModel from "@/models/taskmodel";
+import connectMongoDB from "../../../../libs/mongodb";
+import TaskModel from "../../../../models/taskmodel";
 import { NextResponse } from "next/server";
  
 export async function PUT(request, { params }) {
