@@ -14,59 +14,8 @@ function MainAccordion() {
   //
   //
   //
-  const [category, setCategory] = useState('');
-  const [taskList, setTaskList] = useState([]);
-  const [author, setAuthor] = useState(''); //ип для параметра запроса
-  const [authorName, setAuthorName] = useState(''); //имя для запроса тасков авторизованных пользователей
-
-  const { data: session } = useSession();
 
   //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
-  //получаем ип у Амазона
-  async function getip_server() {
-    return await getip().then(function (dataAuthor) {
-      setAuthor(dataAuthor);
-      //console.log('author--', author);
-      return dataAuthor;
-    });
-  }
-
-  // getip_server()
-
-  async function getAuthor() {
-    if (session || session?.user) {
-      //setAuthorName(session.user.name)
-      const temp = session.user.name;
-      setAuthorName(temp);
-      /* console.log(
-        'authorName1--',
-        authorName,
-        'author2---',
-        author,
-        '-----',
-        session.user.name
-      ); */
-      // return await session.user.name
-    }
-    // console.log('tetet--', session);
-    //setAuthorName(session.user.name);
-  }
-
-  useEffect(() => {
-    //эта поебень работает вообще не по документации
-    //если зависимости были пустые то отрабатывала только после редактирования задачи или добавлении новой
-    //при перезагрузке страницы как и положено не работала
-    //добавил в зависимости автора и имя автора. Стало работать наполовину. При первой загрузке не срабатывало. При обновлении страницы срабатывало
-    //добавил и сессию. Теперь при первой загрузке не выводит ничего, а при перезагрузке выводит все правильно
-    //Получим IP  у Амазона
-
-    getip_server();
-
-    //получим автора
-    getAuthor();
-  }, [author, authorName, session]);
-
-  // setTimeout(getip_server, 5000);
 
   return (
     <div className="mx-2">
@@ -79,16 +28,12 @@ function MainAccordion() {
         <div className="collapse-content bg-lime-200 ">
           <div className={MyStyles.BackGround_1}>
             {/*  <div ><AddWindow category="1"></AddWindow></div> */}
-            {authorName}
+
             <Link href={'/addTask/1'}>
               <button className="btn btn-primary mb-2">Добавить задачу</button>
             </Link>
             <div>
-              <TasksList
-                authorName={authorName}
-                category="1"
-                author={author}
-              ></TasksList>
+              <TasksList category="1"></TasksList>
             </div>
           </div>
         </div>
@@ -108,11 +53,7 @@ function MainAccordion() {
             </Link>
           </div>
           <div>
-            <TasksList
-              category="2"
-              authorName={authorName}
-              author={author}
-            ></TasksList>
+            <TasksList category="2"></TasksList>
           </div>
         </div>
       </div>
@@ -130,11 +71,7 @@ function MainAccordion() {
             </Link>
           </div>
           <div>
-            <TasksList
-              category="3"
-              authorName={authorName}
-              author={author}
-            ></TasksList>
+            <TasksList category="3"></TasksList>
           </div>
         </div>
       </div>
@@ -152,11 +89,7 @@ function MainAccordion() {
             </Link>
           </div>
           <div>
-            <TasksList
-              category="4"
-              authorName={authorName}
-              author={author}
-            ></TasksList>
+            <TasksList category="4"></TasksList>
           </div>
         </div>
       </div>

@@ -42,9 +42,10 @@ export async function GET(request, { params }) {
     const author = request.nextUrl.searchParams.get("author");
     const authorName = request.nextUrl.searchParams.get("authorName");
 
-    console.log('params---------------',params, cat, author, authorName);
+    console.log('params from route---------------',params, author,authorName,' request---' ,request);
   await connectMongoDB();
   //const tasks = await TaskModel.find();
-  const tasks = await TaskModel.find({ category: cat });
+  //const tasks = await TaskModel.find({ category: cat, author: author });
+  const tasks = await TaskModel.find({  $or: [   {category: cat}, {authorName: authorName}  ]});
   return NextResponse.json({body: tasks }, { status: 200 });
 }
