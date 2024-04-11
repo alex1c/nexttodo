@@ -21,7 +21,7 @@ function AddWindow(props) {
   //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
   async function getip_server() {
     return await getip().then(function (data) {
-      setAuthor(data);
+      setAuthor(data.replace(/(\r\n|\n|\r)/gm, ""));
 
       return data;
     });

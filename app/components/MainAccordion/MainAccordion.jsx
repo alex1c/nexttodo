@@ -9,9 +9,10 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import getip from '../../../libs/getip';
+import { useRouter } from 'next/navigation';
+import ClientWrapComponent from '../ClientWrapComponent/ClientWrapComponent';
 
 function MainAccordion() {
-  //
   //
   //
 
@@ -74,22 +75,24 @@ function MainAccordion() {
             <TasksList category="3"></TasksList>
           </div>
         </div>
-      </div>
-      <Divider></Divider>
-      <div className="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" />
-        <div className="collapse-title text-xl font-medium bg-orange-200">
-          Не важно. Не срочно. Удалить
-        </div>
-        <div className="collapse-content bg-orange-200">
-          <div>
-            {/*  <AddWindow category="4"></AddWindow> */}
-            <Link href={'/addTask/4'}>
-              <button className="btn btn-primary mb-2">Добавить задачу</button>
-            </Link>
+        <Divider></Divider>
+        <div className="collapse collapse-arrow bg-base-200">
+          <input type="radio" name="my-accordion-2" />
+          <div className="collapse-title text-xl font-medium bg-orange-200">
+            Не важно. Не срочно. Удалить
           </div>
-          <div>
-            <TasksList category="4"></TasksList>
+          <div className="collapse-content bg-orange-200">
+            <div>
+              {/*  <AddWindow category="4"></AddWindow> */}
+              <Link href={'/addTask/4'}>
+                <button className="btn btn-primary mb-2">
+                  Добавить задачу
+                </button>
+              </Link>
+            </div>
+            <div>
+              <TasksList category="4"></TasksList>
+            </div>
           </div>
         </div>
       </div>

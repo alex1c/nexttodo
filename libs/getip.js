@@ -12,7 +12,7 @@ async function getIPFromAmazon() {
   })
     .then((res) => res.text())
     .then(function (data) {
-      console.log("data ip--", data);
+      //console.log("data ip--", data);
       return data;
     })
     .catch((error) => {
@@ -22,7 +22,10 @@ async function getIPFromAmazon() {
 }
 
 async function getip() {
-  return await getIPFromAmazon();
+  const ip = await getIPFromAmazon();
+  //console.log(ip);
+  return ip;
+
 }
 
 //console.log("getip", getip());
