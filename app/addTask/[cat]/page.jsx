@@ -1,58 +1,79 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import getip from "../../../libs/getip";
-import {useSession} from 'next-auth/react'
-
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+//import getip from "../../../libs/getip";
+import { useSession } from 'next-auth/react';
+import hasCookie from '../../../lib/setcookie';
 
 export default function AddTask({ params }) {
-  const [name, setName] = useState("");
-  const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
-  const [authorName, setAuthorName] = useState("")
-  const [authorEmail, setAuthorEmail] = useState("")
+  const [name, setName] = useState('');
+  const [body, setBody] = useState('');
+  const [author, setAuthor] = useState('');
+  //const [category, setCategory] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [authorEmail, setAuthorEmail] = useState('');
+  const [authorCookie, setAuthorCookie] = useState('');
 
   const router = useRouter();
 
-  const { id } = params;
+  const { cat } = params;
+  const category = cat
 
-  const {data: session} = useSession()
+  const { data: session } = useSession();
 
-  //хз почему но сразу из юзэффекта не установить было автора. Получался промис несмотря на то что функция получения ип возвращала текст
-  async function getip_server() {
-    
-    return await getip().then(function (data) {
-      setAuthor(data);
+  console.log('cat--',cat)
 
-      return data;
-    });
+  /* const FunctionInsideuseEfect = () => {
+    setAuthorEmail('huy');
+    console.log(authorEmail);
+  }; */
+
+  async function newFunction(coc) {
+    //console.log(coc);
+    setAuthorCookie(coc);
+    setAuthor(coc)
+    return coc;
   }
 
-
+  async function cc() {
+    const cc = await hasCookie().then((data) => newFunction(data.value));
+  }
 
   useEffect(() => {
-
-    //Получим IP  у Амазона
-    let ip = getip_server();  
-    
-    //если залогинен то заполним автора из логина
     if (session || session?.user) {
-   //   if (session ) {
-      setAuthorName(session.user.name)
-      setAuthorEmail(session.user.email)
-      //console.log('authorName--',authorName, 'author---', authorEmail,session.user.name);
+      if (!authorName) {
+        setAuthorName(session.user.name);
+      }
+
+      if (!authorEmail) {
+        setAuthorEmail(session.user.email);
+      }
     }
 
-    setCategory(id);
+    /* if (!cat) {
+      setCategory(cat);
+    } */
+
+    cc();
   }, []);
 
+  
 
+  console.log(
+    'authorName-',
+    authorName,
+    'authorEmail-',
+    authorEmail,
+    'authorCookie',
+    authorCookie
+  );
+
+  // FunctionInsideuseEfect();
 
   //кнопка закрытия
   const handleClose = function () {
-    router.push("/");
+    router.push('/');
     router.refresh();
   };
 
@@ -60,28 +81,36 @@ export default function AddTask({ params }) {
     e.preventDefault();
 
     if (!name) {
-      alert("Наименование задачи обязательно!");
+      alert('Наименование задачи обязательно!');
       return;
     }
 
     //console.log("debug---",authorEmail,'-----',session?.user.name)
 
     try {
-      const res = await fetch("http://localhost:3000/api/tasks", {
-        method: "POST",
+      const res = await fetch('http://localhost:3000/api/tasks', {
+        method: 'POST',
         headers: {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         },
-        body: JSON.stringify({ name, body, author, category, authorName, authorEmail }),
+        body: JSON.stringify({
+          name,
+          body,
+          author,
+          category,
+          authorName,
+          authorEmail,
+          authorCookie,
+        }),
       });
 
       console.log(res);
 
       if (res.ok) {
-        router.push("/");
+        router.push('/');
         router.refresh();
       } else {
-        throw new Error("Failed to create a task");
+        throw new Error('Failed to create a task');
       }
     } catch (error) {
       console.log(error);
@@ -111,7 +140,7 @@ export default function AddTask({ params }) {
               placeholder="что сделать"
               // defaultValue="/images/1.jpg"
             />
-           {/*  <input
+            {/*  <input
               hidden="true"
               onChange={(e) => setAuthor(e.target.value)}
               value={author}

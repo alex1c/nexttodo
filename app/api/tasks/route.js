@@ -1,5 +1,5 @@
 //import connectMongoDB from "@/libs/mongodb";
-import connectMongoDB from '../../../libs/mongodb';
+import connectMongoDB from '../../../lib/mongodb';
 
 //import TaskModel from "@/models/taskmodel";
 import TaskModel from '../../../models/taskmodel';
@@ -12,7 +12,7 @@ import { NextResponse } from 'next/server';
 } */
 
 export async function POST(request) {
-  // console.log("request-------", request);
+   console.log("request-------", request);
   //записываем в бд одну задачу
 
   const { name, body, author, category, authorName, authorEmail } =

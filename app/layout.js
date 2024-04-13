@@ -1,9 +1,9 @@
-import { Inter } from 'next/font/google';
+import { Forum } from 'next/font/google';
 import './globals.css';
-import Navbar from './components/Navbar';
+import Navbar from '../components/Navbar';
 import Providers from '../providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Forum({ subsets: ['cyrillic'],weight: ["400"], });
 
 export const metadata = {
   title: 'Martix',
@@ -12,12 +12,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ru">
+      <body className={inter.className } >
+        <div className='m-auto min-w-[300px] max-w-8xl p-4'>
         <Providers>
           <Navbar></Navbar>
           {children}
         </Providers>
+        </div>
       </body>
     </html>
   );

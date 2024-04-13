@@ -1,9 +1,15 @@
-import React from "react";
-import { signOut, auth, signIn } from "../../auth";
+import React from 'react';
+import { signOut, auth, signIn } from '../auth';
+import Image from 'next/image';
+import { nanoid } from 'nanoid';
+import { cookies } from 'next/headers';
+//import { useEffect } from 'react';
+//import {checkCookie} from '../lib/setcookie';
 
 async function Navbar() {
-
   const session = await auth();
+
+  //checkCookie();
 
   return (
     <div>
@@ -13,41 +19,51 @@ async function Navbar() {
         </div>
 
         <div className="ml-auto">
-        <div className="form-control mx-3">
+          <div className="form-control mx-3">
             <input
               type="text"
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto"
             />
           </div>
-        {/*  {session && session.user ? (<div><p>{session.user.name}</p><form></form><div/>) : (<div>333<div/>)} */}
-        {session && session.user ? (
-          <div className="flex gap-4 text-green-800">
-            <p>{session.user.name}</p>
+          {/*  {session && session.user ? (<div><p>{session.user.name}</p><form></form><div/>) : (<div>333<div/>)} */}
+          {session && session.user ? (
+            <div className="flex gap-4 text-green-800 font-extrabold">
+              <p className="text-xl ">{session.user.name}</p>
+              <div className="w-30 rounded-full">
+                <Image
+                  alt="user photo"
+                  src={session.user.image}
+                  width={30}
+                  height={30}
+                  className="w-30 rounded-full"
+                />
+              </div>
+
+              <form
+                action={async () => {
+                  'use server';
+                  await signOut();
+                }}
+              >
+                <button type="submit" className=" text-green-800 mr-4">
+                  Выйти
+                </button>
+              </form>
+            </div>
+          ) : (
             <form
               action={async () => {
-                "use server";
-                await signOut();
+                'use server';
+                await signIn();
               }}
             >
-              <button type="submit" className=" text-green-800 mr-4">
-                Выйти
+              <button type="submit" className=" text-green-700 mr-4">
+                Войти
               </button>
             </form>
-          </div>
-        ) : (
-          <form
-            action={async () => {
-              "use server";
-              await signIn();
-            }}
-          >
-            <button type="submit" className=" text-green-700 mr-4">
-              Войти
-            </button>
-          </form>
-        )}
-      </div>
+          )}
+        </div>
         {/* <div className="flex-none gap-2">
           <div className="form-control">
             <input
@@ -65,7 +81,7 @@ async function Navbar() {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src="https://source.unsplash.com/random/200x200?sig=2"
                 />
               </div>
             </div>
