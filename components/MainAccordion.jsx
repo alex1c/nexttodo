@@ -4,6 +4,7 @@ import React from 'react';
 import Task from './Task';
 import { useEffect } from 'react';
 import checkCookie from '../lib/setcookie';
+import TasksList from './TasksList';
 
 import Link from 'next/link';
 function MainAccordion() {
@@ -25,20 +26,14 @@ function MainAccordion() {
         {/*  <button className="btn btn-outline btn-success ">
               <Link href={'/addTask/1'} >Добавить задачу</Link>
                 </button> */}
-        <Link href={'/addTask/1'} >
-          <button className="btn btn-outline btn-success" test='45'>
+        <Link href={'/addTask/1'}>
+          <button className="btn btn-outline btn-success" test="45">
             Добавить задачу
           </button>
         </Link>
 
         <div className="collapse-content flex flex-row flex-wrap">
-          <Task></Task>
-          <Task></Task>
-          <Task></Task>
-          <Task></Task>
-          <Task></Task>
-          <Task></Task>
-          <Task></Task>
+          <TasksList category="1"></TasksList>
         </div>
       </div>
       <div className="collapse bg-base-200 my-2">
@@ -52,7 +47,7 @@ function MainAccordion() {
           </button>
         </Link>
         <div className="collapse-content">
-          <p>hello</p>
+          <TasksList category="2"></TasksList>
         </div>
       </div>
       <div className="collapse bg-base-200 my-2">
@@ -66,7 +61,7 @@ function MainAccordion() {
           </button>
         </Link>
         <div className="collapse-content">
-          <p>hello</p>
+          <TasksList category="3"></TasksList>
         </div>
       </div>
       <div className="collapse bg-base-200 my-2">
@@ -80,7 +75,7 @@ function MainAccordion() {
           </button>
         </Link>
         <div className="collapse-content">
-          <p>hello</p>
+          <TasksList category="4"></TasksList>
         </div>
       </div>
     </>

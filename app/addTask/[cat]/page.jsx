@@ -15,29 +15,34 @@ export default function AddTask({ params }) {
   const [authorEmail, setAuthorEmail] = useState('');
   const [authorCookie, setAuthorCookie] = useState('');
 
+  const [isLoading, setLoading] = useState(true);
+
   const router = useRouter();
 
   const { cat } = params;
-  const category = cat
+  const category = cat;
 
   const { data: session } = useSession();
 
-  console.log('cat--',cat)
+  console.log('cat--', cat);
 
-  /* const FunctionInsideuseEfect = () => {
-    setAuthorEmail('huy');
-    console.log(authorEmail);
-  }; */
-
-  async function newFunction(coc) {
+  /* async function newFunction(coc) {
     //console.log(coc);
     setAuthorCookie(coc);
-    setAuthor(coc)
+    setAuthor(coc);
     return coc;
-  }
+  } */
 
+
+  //правильное решение с лоадингом которое раньше не получалось сделать
+  //запомнить на бужущее!!
   async function cc() {
-    const cc = await hasCookie().then((data) => newFunction(data.value));
+    // const cc = await hasCookie().then((data) => newFunction(data.value));
+    const cc = await hasCookie().then((data) => {
+      setAuthorCookie(data.value);
+      setAuthor(data.value);
+      setLoading(false);
+    });
   }
 
   useEffect(() => {
@@ -57,8 +62,6 @@ export default function AddTask({ params }) {
 
     cc();
   }, []);
-
-  
 
   console.log(
     'authorName-',
@@ -116,6 +119,9 @@ export default function AddTask({ params }) {
       console.log(error);
     }
   };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (!authorCookie) return <p>No profile data</p>;
 
   return (
     <>

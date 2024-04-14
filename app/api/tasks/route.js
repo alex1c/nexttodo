@@ -50,14 +50,14 @@ export async function GET(request, { params }) {
   const author = request.nextUrl.searchParams.get('author');
   const authorName = request.nextUrl.searchParams.get('authorName');
 
-  console.log(
+   console.log(
     'params from route---------------',
     params,
     author,
     authorName,
     ' request---',
     request
-  );
+  ); 
   await connectMongoDB();
   //const tasks = await TaskModel.find();
   //const tasks = await TaskModel.find({ category: cat, author: author });
