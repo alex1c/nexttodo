@@ -125,25 +125,26 @@ export default function AddTask({ params }) {
 
   return (
     <>
-      <div className="flex  flex-col items-center">
-        <div className="flex flex-col justify-between items-center">
+      
+        
           <h1 className="font-bold py-10 text-2xl">Добавить новую задачу</h1>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 justify-center items-center">
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
-              className="input input-bordered input-accent w-full max-w-xs"
+              className="input input-bordered input-accent w-full max-w-md"
               type="text"
               placeholder="Наименование задачи"
             />
 
-            <input
+            <textarea
               onChange={(e) => setBody(e.target.value)}
               value={body}
-              className="input input-bordered input-accent w-full max-w-xs"
+              className="textarea textarea-bordered textarea-lg w-full max-w-lg"
               type="text"
               placeholder="что сделать"
+              rows={20}
               // defaultValue="/images/1.jpg"
             />
             {/*  <input
@@ -163,10 +164,10 @@ export default function AddTask({ params }) {
               type="text"
               placeholder="Task Category"
             /> */}
-            <div className="flex flex-row ">
+            
               <button
                 type="submit"
-                className="btn btn-primary w-full max-w-xs mx-3"
+                className="btn btn-primary w-full max-w-xs"
               >
                 Добавить задачу
               </button>
@@ -177,10 +178,10 @@ export default function AddTask({ params }) {
               >
                 Отмена
               </button>
-            </div>
+            
           </form>
-        </div>
-      </div>
+       
+      
     </>
   );
 }

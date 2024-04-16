@@ -15,7 +15,7 @@ export async function POST(request) {
    console.log("request-------", request);
   //записываем в бд одну задачу
 
-  const { name, body, author, category, authorName, authorEmail } =
+  const { name, body, author, category, authorName, authorEmail, authorCookie } =
     await request.json();
   //console.log("body-------", name, body, author, category , authorName, authorEmail);
 
@@ -29,6 +29,7 @@ export async function POST(request) {
       category,
       authorName,
       authorEmail,
+      authorCookie,
     });
     return NextResponse.json({ message: 'Task Created' }, { status: 201 });
   }
@@ -49,15 +50,16 @@ export async function GET(request, { params }) {
   const cat = request.nextUrl.searchParams.get('cat');
   const author = request.nextUrl.searchParams.get('author');
   const authorName = request.nextUrl.searchParams.get('authorName');
+  const authorCookie = request.nextUrl.searchParams.get('authorCookie');//доделать поиск по кукам
 
-   console.log(
+   /* console.log(
     'params from route---------------',
     params,
     author,
     authorName,
     ' request---',
     request
-  ); 
+  );  */
   await connectMongoDB();
   //const tasks = await TaskModel.find();
   //const tasks = await TaskModel.find({ category: cat, author: author });

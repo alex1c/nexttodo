@@ -3,6 +3,7 @@ import { signOut, auth, signIn } from '../auth';
 import Image from 'next/image';
 import { nanoid } from 'nanoid';
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 //import { useEffect } from 'react';
 //import {checkCookie} from '../lib/setcookie';
 
@@ -15,7 +16,7 @@ async function Navbar() {
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Матрица Эйзенхауэра</a>
+          <Link href={'/'} className="btn btn-ghost text-xl">Матрица Эйзенхауэра</Link>
         </div>
 
         <div className="ml-auto">

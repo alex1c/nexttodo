@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 //import getuser from '../lib/GetAuthor';
 //import { signOut, auth, signIn } from '../auth';
+import { FaEdit } from 'react-icons/fa';
+import MovieTaskext from '../lib/MovieTask'
 
 import hasCookie from '../lib/setcookie';
 
@@ -21,9 +23,10 @@ function TasksList(props) {
   const [author, setAuthor] = useState(''); //ип для параметра запроса
   const [authorName, setAuthorName] = useState(''); //имя для запроса тасков авторизованных пользователей
   const [authorCookie, setAuthorCookie] = useState('');
+  let goUpdate = 1;
 
   const [isLoading, setLoading] = useState(true);
-  //const [isLoadingSession, setLoadingSession] = useState(true);
+  const [isLoadingSession, setLoadingSession] = useState(true);
 
   const router = useRouter();
 
@@ -31,8 +34,8 @@ function TasksList(props) {
 
   //console.log(useSession());
   //console.log('author-------', getuser());
-  let author_variable = ''
-  let cookie_variable = ''
+  let author_variable = '';
+  let cookie_variable = '';
 
   async function getAuthorFromSession() {
     if (session || session?.user) {
@@ -56,7 +59,7 @@ function TasksList(props) {
         setAuthorCookie(data.value);
         setAuthor(data.value);
         console.log('data.value', data.value);
-        cookie_variable = data.value
+        cookie_variable = data.value;
       })
       .then(() => getAuthorFromSession())
       .then((auth) => {
@@ -87,10 +90,9 @@ function TasksList(props) {
   //эта поебень не работала просто так. В консоли промис боди дата, а выводить не выводило. Через эту прокладку функцию выдало
   //как оказалось ниже можно было выкинуть нахрен стейты и просто установить в промисе переменную
   async function FackingPromice(hren) {
-    console.log('hren--',hren)
+    console.log('hren--', hren);
     setTaskList(hren);
   }
-
 
   //почему в юзеффекте через промисы автор не устанавливался в стейт?
   //прищлось писать прокладку, но и в ней на входе точно приходила переменная с автором. Тут же устанавливал ее в стейт, но стейт был undefined !!
@@ -98,16 +100,24 @@ function TasksList(props) {
   //нахуя тогда все эти стейты?
   async function fuckingPromise2(hren2) {
     console.log('hren2-', hren2);
-    setAuthorName(hren2);//какого хуя он undefined  если в переменной hren2  автор?
-    author_variable=hren2// вот это почему то работает как часы
+    setAuthorName(hren2); //какого хуя он undefined  если в переменной hren2  автор?
+    author_variable = hren2; // вот это почему то работает как часы
     return true;
   }
 
   //костыль. после удаления через эту функцию запускаем повторный фетч
   const returnMessage = function () {
-    handleSubmit();
+    //handleSubmit();
+    mainFunction();
   };
 
+
+async function movieTask(props) {
+
+MovieTaskext(props)
+
+}
+  
   //основной обработчик
   const handleSubmit = async () => {
     try {
@@ -154,8 +164,8 @@ function TasksList(props) {
         //внезапно это сначала работало, а потом оказалось, что должно работать только на сервере. Как так?
         //router.refresh();
         //router.push("/");
-    //router.refresh();
-    //location.reload();
+        //router.refresh();
+        //location.reload();
 
         //сначала думал здесь при обновлении перечитаются посты и уберутся удаленные, но нет. Пришлось отдельно дергать функцию через пропс
         return res;
@@ -170,32 +180,76 @@ function TasksList(props) {
   // handleSubmit();
 
   //if (isLoadingSession || isLoading) return <p>Loading isLoadingSession...</p>;
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading && isLoadingSession)  return <p>Loading...</p>;
   //if (!authorCookie) return <p>No profile data</p>;
 
-
-   return (
-    <div className={''}>
+  return (
+    <>
       {taskList.map((item) => (
-        <div key={item._id} className={''}>
-          <div className="card-body ">
+        <div
+          key={item._id}
+          className="card w-96 bg-primary text-primary-content m-2"
+        >
+          <div className="card-body">
             <h2 className="card-title">{item.name}</h2>
             <p>{item.body}</p>
+
+            {/* <div className="flex flex-row justify-between ">
+              <button
+                onClick={(e) => {
+                  movieTask([item, '1']);
+                }}
+                href={''}
+                className="hover:font-extrabold text-center"
+              >
+                Важно, срочно
+              </button>
+              <button
+                onClick={(e) => {
+                  movieTask([item, '2']);
+                }}
+                href={''}
+                className="hover:font-extrabold text-center"
+              >
+                Важно, не срочно
+              </button>
+              <button
+                onClick={(e) => {
+                  movieTask([item, '3']);
+                }}
+                href={''}
+                className="hover:font-extrabold text-center"
+              >
+                Не важно, срочно
+              </button>
+              <button
+                onClick={(e) => {
+                  movieTask([item, '4']);
+                }}
+                href={''}
+                className="hover:font-extrabold text-center"
+              >
+                Не важно, не срочно
+              </button>
+            </div> */}
             <div className="card-actions justify-between">
-              <Link href={`/editTask/${item._id}`}>
-                <button className={''}>Редактировать</button>
+              <Link
+                href={`/editTask/${item._id}`}
+                className="text-lime-600 text-3xl hover:text-cyan-500"
+              >
+                {/* <button className={''}>Редактировать</button> */}
+                <FaEdit />
               </Link>
 
-               <DeleteButton
-                idDelet={item._id}
-                funcReturn={returnMessage}
-              ></DeleteButton> 
+              <DeleteButton idDelet={item._id} funcReturn={returnMessage}>
+                Удалить
+              </DeleteButton>
             </div>
           </div>
         </div>
       ))}
-    </div>
-  ); 
+    </>
+  );
 }
 
 export default TasksList;

@@ -46,7 +46,7 @@ function MainAccordion() {
             Добавить задачу
           </button>
         </Link>
-        <div className="collapse-content">
+        <div className="collapse-content flex flex-row flex-wrap">
           <TasksList category="2"></TasksList>
         </div>
       </div>
@@ -60,7 +60,7 @@ function MainAccordion() {
             Добавить задачу
           </button>
         </Link>
-        <div className="collapse-content">
+        <div className="collapse-content flex flex-row flex-wrap">
           <TasksList category="3"></TasksList>
         </div>
       </div>
@@ -74,7 +74,7 @@ function MainAccordion() {
             Добавить задачу
           </button>
         </Link>
-        <div className="collapse-content">
+        <div className="collapse-content flex flex-row flex-wrap">
           <TasksList category="4"></TasksList>
         </div>
       </div>
