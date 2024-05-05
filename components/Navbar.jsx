@@ -20,13 +20,15 @@ async function Navbar() {
         </div>
 
         <div className="ml-auto">
-          <div className="form-control mx-3">
+          {/* <div className="form-control mx-3">
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Поиск"
               className="input input-bordered w-24 md:w-auto"
             />
-          </div>
+          </div> */}
+          <Link className='mx-3 btn btn-ghost text-xl' href={'/search'}>Поиск</Link>
+          <Link className='mx-3 btn btn-ghost text-xl' href={'/about'}>О проекте</Link>
           {/*  {session && session.user ? (<div><p>{session.user.name}</p><form></form><div/>) : (<div>333<div/>)} */}
           {session && session.user ? (
             <div className="flex gap-4 text-green-800 font-extrabold">

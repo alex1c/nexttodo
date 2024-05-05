@@ -41,16 +41,24 @@ export default function EditTaskForm({
         throw new Error('Failed to update task');
       }
 
-      router.refresh();
-      router.push('/');
+      //router.refresh();
+      router.push('/', undefined, { scroll: false });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onOptionChange = e => {
-    setNewCategory(e.target.value)
+  function onOptionChange(e) {
+   // e.preventDefault()
+   // console.log('bulk!')
+    console.log('e.target.value--',e)//e.target.value)
+   setNewCategory(e)
+
   }
+  //const onOptionChange = e => {
+   // console.log('bulk!',e)
+   // setNewCategory(e.target.value)
+  //}
 
   return (
     <>
@@ -77,9 +85,9 @@ export default function EditTaskForm({
                   type="radio"
                   name="radio-10"
                   className="radio checked:bg-red-500"
-                  value={'1'}
-                  checked
-                  onChange={onOptionChange}
+                  value={newCategory}
+                  checked={newCategory === 1}
+                  onChange={()=>onOptionChange(1)}
                 />
               </label>
             </div>
@@ -90,9 +98,9 @@ export default function EditTaskForm({
                   type="radio"
                   name="radio-10"
                   className="radio checked:bg-blue-500"
-                   value={'2'}
-                  checked
-                  onChange={onOptionChange}
+                   value={newCategory}
+                  checked={newCategory === 2}
+                  onChange={()=>onOptionChange(2)}
                 />
               </label>
             </div>
@@ -103,9 +111,9 @@ export default function EditTaskForm({
                   type="radio"
                   name="radio-10"
                   className="radio checked:bg-lime-500"
-                  value={'3'}
-                  checked
-                  onChange={onOptionChange}
+                  value={newCategory}
+                  checked={newCategory === 3}
+                  onChange={()=>onOptionChange(3)}
                 />
               </label>
             </div>
@@ -116,9 +124,9 @@ export default function EditTaskForm({
                   type="radio"
                   name="radio-10"
                   className="radio checked:bg-amber-500"
-                  value={'4'}
-                  checked
-                  onChange={onOptionChange}
+                  value={newCategory}
+                  checked={newCategory === 4}
+                  onChange={()=>onOptionChange(4)}
                 />
               </label>
             </div>

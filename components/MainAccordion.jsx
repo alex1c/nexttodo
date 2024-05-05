@@ -14,7 +14,7 @@ function MainAccordion() {
 
   return (
     <>
-      <div className="collapse bg-base-200 my-2">
+      <div className="collapse bg-base-200 my-2" id='1'>
         <input type="radio" name="my-accordion-1" defaultChecked />
 
         <div className="collapse-title text-xl font-extrabold">
@@ -36,7 +36,7 @@ function MainAccordion() {
           <TasksList category="1"></TasksList>
         </div>
       </div>
-      <div className="collapse bg-base-200 my-2">
+      <div className="collapse bg-base-200 my-2" id='2'>
         <input type="radio" name="my-accordion-1" />
         <div className="collapse-title text-xl font-extrabold">
           Важно. Не срочно. Запланировать
@@ -50,7 +50,7 @@ function MainAccordion() {
           <TasksList category="2"></TasksList>
         </div>
       </div>
-      <div className="collapse bg-base-200 my-2">
+      <div className="collapse bg-base-200 my-2" id='3'>
         <input type="radio" name="my-accordion-1" />
         <div className="collapse-title text-xl font-extrabold">
           Не важно Срочно. Делегировать
@@ -64,7 +64,7 @@ function MainAccordion() {
           <TasksList category="3"></TasksList>
         </div>
       </div>
-      <div className="collapse bg-base-200 my-2">
+      <div className="collapse bg-base-200 my-2" id='4'>
         <input type="radio" name="my-accordion-1" />
         <div className="collapse-title text-xl font-extrabold">
           Не важно. Не срочно. Удалить
